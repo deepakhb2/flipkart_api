@@ -1,8 +1,8 @@
-= flipkart_api
+= Flipkart Api
 Pulling data from flipkart using flipkart api. The initial release with simple FlipkartApi class to get categories, products in perticular category, deals of the day, top offers in json format.
 
- * Requirements
-Api Requests are sent using rest-client gem.
+=== Requirements
+ Api Requests are sent using rest-client gem.
 
 == Usage
  
