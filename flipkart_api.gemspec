@@ -1,0 +1,14 @@
+Gem::Specification.new do |s|  
+  s.name        = 'flipkart_api'
+  s.version     = '0.0.1-beta'
+  s.date        = '2015-02-06'
+  s.summary     = "This gem is to pull data from flipkart using flipkart api"
+  s.description = "Pull data from flipkart by using api"
+  s.authors     = ["Deepak HB"]
+  s.email       = 'deepakhb2@gmail.com'
+  s.files       = ["lib/flipkart_api.rb"]
+  s.homepage    =
+    'http://rubygems.org/gems/flipkart_api'
+  s.add_dependency(%q<rest_client>, ["1.7.2"])
+  s.license       = 'MIT'
+end
