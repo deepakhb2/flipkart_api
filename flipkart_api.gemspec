@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.email       = 'deepakhb2@gmail.com'
   s.files       = ["lib/flipkart_api.rb"]
   s.homepage    =
-    'http://rubygems.org/gems/flipkart_api'
+    'https://github.com/deepakhb2/flipkart_api'
   s.add_dependency(%q<rest_client>, ["1.7.2"])
   s.license       = 'MIT'
 end
