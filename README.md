@@ -1,2 +1,24 @@
-# flipkart_api
-Pulling data from flipkart using flipkart api.
+= flipkart_api
+Pulling data from flipkart using flipkart api. The initial release with simple FlipkartApi class to get categories, products in perticular category, deals of the day, top offers in json format.
+
+ * Requirements
+Api Requests are sent using rest-client gem.
+
+== Usage
+ 
+ require 'flipkart_api'
+ 
+ fp_api = FlipkartApi.new(Fk-Affiliate-Id, Fk-Affiliate-Token)
+ 
+ categories = fp_api.get_categories   #Returns in JSON format
+ 
+ products = fp_api.get_products_by_category(category_name) #Name is as present in categories (xml/json). Returns in json format.
+ 
+ product = fb_api.get_product_by_id(product_id) #id assigned by flipkart for a product.
+ 
+ dotd= fp_api.get_dotd_offers(format) #to get deals of the day. format = xml/json
+ 
+ top_offers = fp_api.get_topoffers(format) 
+ 
+
+
