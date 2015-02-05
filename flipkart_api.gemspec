@@ -9,6 +9,10 @@ Gem::Specification.new do |s|
   s.files       = ["lib/flipkart_api.rb"]
   s.homepage    =
     'https://github.com/deepakhb2/flipkart_api'
-  s.add_dependency(%q<rest_client>, ["1.7.2"])
+
+  s.add_dependency('rest-client', '1.7.2')
+
+  s.required_ruby_version = '>= 1.9.3'
+
   s.license       = 'MIT'
 end
