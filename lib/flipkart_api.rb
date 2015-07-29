@@ -18,14 +18,20 @@ class FlipkartApi
   end
   
   def get_all_products(rest_url)
-    rest_output = RestClient.get rest_url, @header
-    all_products = [rest_output]
-    json_data = JSON.parse(rest_output)
+    json_arr = []
+    json_data = get_products rest_url
+    json_arr << [json_data]
     while json_data["nextUrl"]
-      rest_output = RestClient.get json_data["nextUrl"], @header
-      all_products<<[rest_output]
-      json_data = JSON.parse(rest_output)
+      puts json_data["nextUrl"]
+      json_data = get_products json_data["nextUrl"]
+      json_arr << [json_data]
     end
+    jsonout = json_arr.to_json
+  end
+
+  def get_products(rest_url)
+    rest_output = RestClient.get rest_url, @header
+    json_data = JSON.parse(rest_output)
   end
   
   def get_dotd_offers(format)
