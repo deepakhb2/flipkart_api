@@ -22,7 +22,6 @@ class FlipkartApi
     json_data = get_products rest_url
     json_arr << [json_data]
     while json_data["nextUrl"]
-      puts json_data["nextUrl"]
       json_data = get_products json_data["nextUrl"]
       json_arr << [json_data]
     end
