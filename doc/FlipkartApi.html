@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>class FlipkartApi - RDoc Documentation</title>
+
+<link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="./js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
+
+
+<body id="top" class="class">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="./index.html">Home</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>lib/flipkart_api.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link">Object
+  
+</nav>
+
+    
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li ><a href="#method-c-new">::new</a>
+    
+    <li ><a href="#method-i-get_all_products">#get_all_products</a>
+    
+    <li ><a href="#method-i-get_categories">#get_categories</a>
+    
+    <li ><a href="#method-i-get_category_porducts_api">#get_category_porducts_api</a>
+    
+    <li ><a href="#method-i-get_dotd_offers">#get_dotd_offers</a>
+    
+    <li ><a href="#method-i-get_product_by_id">#get_product_by_id</a>
+    
+    <li ><a href="#method-i-get_products">#get_products</a>
+    
+    <li ><a href="#method-i-get_products_by_category">#get_products_by_category</a>
+    
+    <li ><a href="#method-i-get_top_offers">#get_top_offers</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./FlipkartApi.html">FlipkartApi</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="class">class FlipkartApi</h1>
+
+  <div id="description" class="description">
+    
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="method-c-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">(fk_userid, fk_token)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Initialize object with userid and token to send api calls.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File lib/flipkart_api.rb, line 9</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">fk_userid</span>, <span class="ruby-identifier">fk_token</span>)
+  <span class="ruby-ivar">@api</span> = <span class="ruby-string">&quot;https://affiliate-api.flipkart.net/affiliate&quot;</span>
+  <span class="ruby-ivar">@header</span> = {<span class="ruby-string">&quot;Fk-Affiliate-Id&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">fk_userid</span>, <span class="ruby-string">&quot;Fk-Affiliate-Token&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">fk_token</span>}
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- new-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- new-method -->
+
+    
+    </section><!-- public-class-method-details -->
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-get_all_products" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get_all_products</span><span
+            class="method-args">(rest_url)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>This method will get all the products in the json format. The parameter is
+the output of get_category_products_api(“bags_wallets_belts”) Usage:</p>
+
+<pre>* fa.get_all_products(rest_url)</pre>
+          
+          
+
+          
+          <div class="method-source-code" id="get_all_products-source">
+            <pre><span class="ruby-comment"># File lib/flipkart_api.rb, line 57</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_all_products</span>(<span class="ruby-identifier">rest_url</span>)
+  <span class="ruby-identifier">json_arr</span> = []
+  <span class="ruby-identifier">json_data</span> = <span class="ruby-identifier">get_products</span> <span class="ruby-identifier">rest_url</span>
+  <span class="ruby-identifier">json_arr</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-identifier">json_data</span>]
+  <span class="ruby-keyword">while</span> <span class="ruby-identifier">json_data</span>[<span class="ruby-string">&quot;nextUrl&quot;</span>]
+    <span class="ruby-identifier">json_data</span> = <span class="ruby-identifier">get_products</span> <span class="ruby-identifier">json_data</span>[<span class="ruby-string">&quot;nextUrl&quot;</span>]
+    <span class="ruby-identifier">json_arr</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-identifier">json_data</span>]
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">jsonout</span> = <span class="ruby-identifier">json_arr</span>.<span class="ruby-identifier">to_json</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- get_all_products-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- get_all_products-method -->
+
+    
+      <div id="method-i-get_categories" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get_categories</span><span
+            class="method-args">(format)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>This method will get all the categories list in flipkart with rest url to
+access products of that particular category in json or xml format.
+(“json”/“xml”) Usage:</p>
+
+<pre>* fa = FlipkartApi.new(fk_userid, fk_token)
+* fa.get_categories(&quot;json&quot;)</pre>
+          
+          
+
+          
+          <div class="method-source-code" id="get_categories-source">
+            <pre><span class="ruby-comment"># File lib/flipkart_api.rb, line 22</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_categories</span>(<span class="ruby-identifier">format</span>)
+  <span class="ruby-identifier">rest_url</span>=<span class="ruby-node">&quot;#{@api}/api/#{@header[&#39;Fk-Affiliate-Token&#39;]}.#{format}&quot;</span>
+  <span class="ruby-constant">RestClient</span>.<span class="ruby-identifier">get</span> <span class="ruby-identifier">rest_url</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- get_categories-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- get_categories-method -->
+
+    
+      <div id="method-i-get_category_porducts_api" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get_category_porducts_api</span><span
+            class="method-args">(category)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>This method will get the api for accessing all the products of a particular
+category. Usage:</p>
+
+<pre>* fa = FlipkartApi.new(fk_userid, fk_token)
+* fa.get_category_porducts_api(&quot;bags_wallets_belts&quot;)</pre>
+
+<p>Returns the api to get all the products of the category</p>
+          
+          
+
+          
+          <div class="method-source-code" id="get_category_porducts_api-source">
+            <pre><span class="ruby-comment"># File lib/flipkart_api.rb, line 35</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_category_porducts_api</span>(<span class="ruby-identifier">category</span>)
+  <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">get_categories</span>(<span class="ruby-string">&quot;json&quot;</span>))[<span class="ruby-string">&quot;apiGroups&quot;</span>][<span class="ruby-string">&quot;affiliate&quot;</span>][<span class="ruby-string">&quot;apiListings&quot;</span>][<span class="ruby-identifier">category</span>][<span class="ruby-string">&quot;availableVariants&quot;</span>][<span class="ruby-string">&quot;v0.1.0&quot;</span>][<span class="ruby-string">&quot;get&quot;</span>]
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- get_category_porducts_api-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- get_category_porducts_api-method -->
+
+    
+      <div id="method-i-get_dotd_offers" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get_dotd_offers</span><span
+            class="method-args">(format)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>This method will get the deals of the day in json or xml format. Usage:</p>
+
+<pre>* fa.get_dotd_offes(&quot;json&quot;)  Can accept &quot;xml&quot; .</pre>
+
+<p>Output Details on dotdList:</p>
+
+<pre>* title - Title of the offer
+* description - Description about the offer
+* url - URL for the offer
+* imageUrls - List of Image URLs corresponding to the Offer
+* availability - Either “In-stock” / “Out-of-stock” about the products with offer.</pre>
+          
+          
+
+          
+          <div class="method-source-code" id="get_dotd_offers-source">
+            <pre><span class="ruby-comment"># File lib/flipkart_api.rb, line 93</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_dotd_offers</span>(<span class="ruby-identifier">format</span>)
+  <span class="ruby-identifier">rest_url</span> = <span class="ruby-node">&quot;#{@api}/offers/v1/dotd/#{format}&quot;</span>
+  <span class="ruby-constant">RestClient</span>.<span class="ruby-identifier">get</span> <span class="ruby-identifier">rest_url</span>, <span class="ruby-ivar">@header</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- get_dotd_offers-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- get_dotd_offers-method -->
+
+    
+      <div id="method-i-get_product_by_id" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get_product_by_id</span><span
+            class="method-args">(product_id, format)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>This method will get the full deatials of a particualar product. Output
+will json or xml depending on format parameter (json, xml) Usage:</p>
+
+<pre>* fa.getproduct_by_id(&quot;TVSDD2DSPYU3BFZY&quot;, &quot;json&quot;)</pre>
+          
+          
+
+          
+          <div class="method-source-code" id="get_product_by_id-source">
+            <pre><span class="ruby-comment"># File lib/flipkart_api.rb, line 124</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_product_by_id</span>(<span class="ruby-identifier">product_id</span>, <span class="ruby-identifier">format</span>)
+  <span class="ruby-identifier">rest_url</span> = <span class="ruby-node">&quot;#{@api}/product/#{format}?id=#{product_id}&quot;</span>
+  <span class="ruby-constant">RestClient</span>.<span class="ruby-identifier">get</span> <span class="ruby-identifier">rest_url</span>, <span class="ruby-ivar">@header</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- get_product_by_id-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- get_product_by_id-method -->
+
+    
+      <div id="method-i-get_products" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get_products</span><span
+            class="method-args">(rest_url)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>This method will get the first 500 products from the given rest api Usage:</p>
+
+<pre>* fa.get_products(rest_url)</pre>
+          
+          
+
+          
+          <div class="method-source-code" id="get_products-source">
+            <pre><span class="ruby-comment"># File lib/flipkart_api.rb, line 74</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_products</span>(<span class="ruby-identifier">rest_url</span>)
+  <span class="ruby-identifier">rest_output</span> = <span class="ruby-constant">RestClient</span>.<span class="ruby-identifier">get</span> <span class="ruby-identifier">rest_url</span>, <span class="ruby-ivar">@header</span>
+  <span class="ruby-identifier">json_data</span> = <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">rest_output</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- get_products-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- get_products-method -->
+
+    
+      <div id="method-i-get_products_by_category" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get_products_by_category</span><span
+            class="method-args">(category)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>This method will get the first 500 products in the json format. Output will
+also contain “nextUrl” which inturn returns next 500 products. Usage:</p>
+
+<pre>* fa.get_products_by_category(&quot;bags_wallets_belts&quot;)</pre>
+          
+          
+
+          
+          <div class="method-source-code" id="get_products_by_category-source">
+            <pre><span class="ruby-comment"># File lib/flipkart_api.rb, line 46</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_products_by_category</span>(<span class="ruby-identifier">category</span>)
+  <span class="ruby-identifier">get_products</span>(<span class="ruby-identifier">get_category_product_api</span>(<span class="ruby-identifier">category</span>))
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- get_products_by_category-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- get_products_by_category-method -->
+
+    
+      <div id="method-i-get_top_offers" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get_top_offers</span><span
+            class="method-args">(format)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>This method will get the top offers in xml or json format Usage:</p>
+
+<pre>* fa.get_top_offers(&quot;json&quot;)  Can accept &quot;xml&quot;.</pre>
+
+<p>Output: Details on topOffersList:</p>
+
+<pre>* title - Title of the offer
+* description - Description about the offer
+* url - URL for the offer
+* imageUrls - List of Image URLs corresponding to the Offer
+* availability - Either “In-stock” / “Out-of-stock” about the products with offer.</pre>
+          
+          
+
+          
+          <div class="method-source-code" id="get_top_offers-source">
+            <pre><span class="ruby-comment"># File lib/flipkart_api.rb, line 112</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_top_offers</span>(<span class="ruby-identifier">format</span>)
+  <span class="ruby-identifier">rest_url</span> = <span class="ruby-node">&quot;#{@api}/offers/v1/top/#{format}&quot;</span>
+  <span class="ruby-constant">RestClient</span>.<span class="ruby-identifier">get</span> <span class="ruby-identifier">rest_url</span>, <span class="ruby-ivar">@header</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- get_top_offers-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- get_top_offers-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 4.0.0.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+
