@@ -38,7 +38,7 @@ class FlipkartApi
 
   ##
   #
-  # This method will get the first 500 products in the json format.
+  # This method will get the first 500 products in the json parsed data structure.
   # Output will also contain "nextUrl" which inturn returns next 500 products.
   # Usage:
   #  * fa.get_products_by_category("bags_wallets_belts")
@@ -49,7 +49,7 @@ class FlipkartApi
   
   ##
   #
-  # This method will get all the products in the json format.
+  # This method will get all the products in the json parsed data structure.
   # The parameter is the output of get_category_products_api("bags_wallets_belts")
   # Usage:
   #  * fa.get_all_products(rest_url)
@@ -67,7 +67,7 @@ class FlipkartApi
 
   ##
   #
-  # This method will get the first 500 products from the given rest api
+  # This method will get the first 500 products from the given rest api in the json parsed data structure.
   # Usage:
   #  * fa.get_products(rest_url)
   #
