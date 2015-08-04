@@ -26,3 +26,5 @@ Pulling data from flipkart using flipkart api. The initial release with simple F
  
  top_offers = fp_api.get_topoffers(format) 
  
+ search = fp_api.search("key", format, no_records) # To search products. format= xml/json, no_records = 10 (10 is the max value and its optional)
+ 
