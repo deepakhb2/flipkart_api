@@ -91,6 +91,8 @@
     
     <li ><a href="#method-i-get_top_offers">#get_top_offers</a>
     
+    <li ><a href="#method-i-searh">#searh</a>
+    
   </ul>
 </nav>
 
@@ -492,6 +494,44 @@ also contain “nextUrl” which inturn returns next 500 products. Usage:</p>
 
         
       </div><!-- get_top_offers-method -->
+
+    
+      <div id="method-i-searh" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">searh</span><span
+            class="method-args">(key, formate, max_result=10)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>This method will get all the products accross those matches the key sent as
+parameters. Output will be json or xml depending on the parameter passed.
+Usage:</p>
+
+<pre>* fa.search(&quot;product name&quot;, &quot;json&quot;, 5)</pre>
+          
+          
+
+          
+          <div class="method-source-code" id="searh-source">
+            <pre><span class="ruby-comment"># File lib/flipkart_api.rb, line 136</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">searh</span>(<span class="ruby-identifier">key</span>, <span class="ruby-identifier">formate</span>,  <span class="ruby-identifier">max_result</span>=<span class="ruby-value">10</span>)
+  <span class="ruby-identifier">rest_url</span> = <span class="ruby-node">&quot;#{@api}/search/format?query=#{key}&amp;resultCount=#{max_result}&quot;</span>
+  <span class="ruby-constant">RestClient</span>.<span class="ruby-identifier">get</span> <span class="ruby-identifier">rest_url</span>, <span class="ruby-ivar">@header</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- searh-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- searh-method -->
 
     
     </section><!-- public-instance-method-details -->

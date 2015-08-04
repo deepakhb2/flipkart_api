@@ -125,4 +125,16 @@ class FlipkartApi
     rest_url = "#{@api}/product/#{format}?id=#{product_id}"
     RestClient.get rest_url, @header
   end
+
+  ##
+  #
+  #This method will get all the products accross those matches the key sent as parameters.
+  #Output will be json or xml depending on the parameter passed.
+  #Usage:
+  #  * fa.search("product name", "json", 5)
+  #
+  def searh(key, formate,  max_result=10)
+    rest_url = "#{@api}/search/format?query=#{key}&resultCount=#{max_result}"
+    RestClient.get rest_url, @header
+  end
 end
