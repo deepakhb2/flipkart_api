@@ -28,3 +28,9 @@ Pulling data from flipkart using flipkart api. The initial release with simple F
  
  search = fp_api.search("key", format, no_records) # To search products. format= xml/json, no_records = 10 (10 is the max value and its optional)
  
+ orders_report = fp_api.orders_report(start_date, end_date, status) # To get orders report.
+   parameters: start_date = "yyyy-mm-dd"
+               end_date = "yyyy-mm-dd"
+               status = Pending/Approved/Cancelled/Disapproved
+               
+ 
