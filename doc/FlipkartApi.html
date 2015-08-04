@@ -91,6 +91,8 @@
     
     <li ><a href="#method-i-get_top_offers">#get_top_offers</a>
     
+    <li ><a href="#method-i-orders_report">#orders_report</a>
+    
     <li ><a href="#method-i-searh">#searh</a>
     
   </ul>
@@ -191,8 +193,9 @@
 
         <div class="method-description">
           
-          <p>This method will get all the products in the json format. The parameter is
-the output of get_category_products_api(“bags_wallets_belts”) Usage:</p>
+          <p>This method will get all the products in the json parsed data structure.
+The parameter is the output of
+get_category_products_api(“bags_wallets_belts”) Usage:</p>
 
 <pre>* fa.get_all_products(rest_url)</pre>
           
@@ -393,7 +396,8 @@ will json or xml depending on format parameter (json, xml) Usage:</p>
 
         <div class="method-description">
           
-          <p>This method will get the first 500 products from the given rest api Usage:</p>
+          <p>This method will get the first 500 products from the given rest api in the
+json parsed data structure. Usage:</p>
 
 <pre>* fa.get_products(rest_url)</pre>
           
@@ -429,8 +433,9 @@ will json or xml depending on format parameter (json, xml) Usage:</p>
 
         <div class="method-description">
           
-          <p>This method will get the first 500 products in the json format. Output will
-also contain “nextUrl” which inturn returns next 500 products. Usage:</p>
+          <p>This method will get the first 500 products in the json parsed data
+structure. Output will also contain “nextUrl” which inturn returns next 500
+products. Usage:</p>
 
 <pre>* fa.get_products_by_category(&quot;bags_wallets_belts&quot;)</pre>
           
@@ -494,6 +499,45 @@ also contain “nextUrl” which inturn returns next 500 products. Usage:</p>
 
         
       </div><!-- get_top_offers-method -->
+
+    
+      <div id="method-i-orders_report" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">orders_report</span><span
+            class="method-args">(start_date, end_date, status, format, offset=0)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>This method will get all the orders of perticular status. Output will be
+json or xml depending on parameter Usage:</p>
+
+<pre>* fa.orders_report(&quot;yyyy-MM-dd&quot;, &quot;yyyy-MM-dd&quot;, &quot;Pending&quot;, &quot;json&quot;)</pre>
+
+<p>status = Pending/Approved/Cancelled/Disapproved</p>
+          
+          
+
+          
+          <div class="method-source-code" id="orders_report-source">
+            <pre><span class="ruby-comment"># File lib/flipkart_api.rb, line 149</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">orders_report</span>(<span class="ruby-identifier">start_date</span>, <span class="ruby-identifier">end_date</span>, <span class="ruby-identifier">status</span>, <span class="ruby-identifier">format</span>, <span class="ruby-identifier">offset</span>=<span class="ruby-value">0</span>)
+  <span class="ruby-identifier">rest_url</span> = <span class="ruby-node">&quot;#{@api}/report/orders/detail/#{format}?startDate=#{start_date}&amp;endDate=#{end_date}&amp;status=#{status}&amp;offset=#{offset}&quot;</span>
+  <span class="ruby-constant">RestClient</span>.<span class="ruby-identifier">get</span> <span class="ruby-identifier">rest_url</span>, <span class="ruby-ivar">@header</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- orders_report-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- orders_report-method -->
 
     
       <div id="method-i-searh" class="method-detail ">

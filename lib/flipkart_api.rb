@@ -137,4 +137,17 @@ class FlipkartApi
     rest_url = "#{@api}/search/format?query=#{key}&resultCount=#{max_result}"
     RestClient.get rest_url, @header
   end
+
+  ##
+  #
+  # This method will get all the orders of perticular status. Output will be json or xml depending on parameter
+  # Usage:
+  #  * fa.orders_report("yyyy-MM-dd", "yyyy-MM-dd", "Pending", "json")
+  #
+  # status = Pending/Approved/Cancelled/Disapproved
+  #
+  def orders_report(start_date, end_date, status, format, offset=0)
+    rest_url = "#{@api}/report/orders/detail/#{format}?startDate=#{start_date}&endDate=#{end_date}&status=#{status}&offset=#{offset}"
+    RestClient.get rest_url, @header
+  end
 end
