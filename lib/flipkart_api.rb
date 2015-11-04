@@ -135,7 +135,7 @@ class FlipkartApi
   #  * fa.search("product name", "json", 5)
   #
   def search(key, format,  max_result=10)
-    rest_url = "#{@api}/search/format?query=#{key}&resultCount=#{max_result}"
+    rest_url = "#{@api}/search/#{format}?query=#{key}&resultCount=#{max_result}"
     RestClient.get rest_url, @header
   end
 
