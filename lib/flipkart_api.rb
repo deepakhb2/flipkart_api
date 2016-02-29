@@ -21,7 +21,7 @@ class FlipkartApi
   #  * fa.get_categories("json")
   #
   def get_categories(format)
-    rest_url="#{@api}/api/#{@header['Fk-Affiliate-Token']}.#{format}"
+    rest_url="#{@api}/api/#{@header['Fk-Affiliate-Id']}.#{format}"
     RestClient.get rest_url
   end
 
