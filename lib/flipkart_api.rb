@@ -1,5 +1,7 @@
 # coding: utf-8
 require "rest-client"
+require "pry"
+require "logger"
 
 class FlipkartApi
 
@@ -7,7 +9,7 @@ class FlipkartApi
   #
   # Initialize object with userid and token to send api calls.
   #
-  def initialize(fk_userid, fk_token)
+  def initialize(fk_userid, fk_token)\
     @api = "https://affiliate-api.flipkart.net/affiliate"
     @header = {"Fk-Affiliate-Id" => fk_userid, "Fk-Affiliate-Token" => fk_token}
   end
@@ -22,7 +24,7 @@ class FlipkartApi
   #
   def get_categories(format)
     rest_url="#{@api}/api/#{@header['Fk-Affiliate-Id']}.#{format}"
-    RestClient.get rest_url
+    RestClient.get rest_url, @header
   end
 
   ##
@@ -33,7 +35,7 @@ class FlipkartApi
   #  * fa.get_category_porducts_api("bags_wallets_belts")
   # Returns the api to get all the products of the category
   #
-  def get_category_porducts_api(category)
+  def get_category_products_api(category)
     JSON.parse(get_categories("json"))["apiGroups"]["affiliate"]["apiListings"][category]["availableVariants"]["v0.1.0"]["get"]
   end
 
@@ -45,7 +47,7 @@ class FlipkartApi
   #  * fa.get_products_by_category("bags_wallets_belts")
   #
   def get_products_by_category(category)
-    get_products(get_category_product_api(category))
+    get_products(get_category_products_api(category))
   end
   
   ##
@@ -93,7 +95,7 @@ class FlipkartApi
   #
   def get_dotd_offers(format)
     rest_url = "#{@api}/offers/v1/dotd/#{format}"
-    RestClient.get rest_url, @header
+    JSON.parse(RestClient.get rest_url, @header)
   end
   
   ##
@@ -112,7 +114,7 @@ class FlipkartApi
   #
   def get_top_offers(format)
     rest_url = "#{@api}/offers/v1/top/#{format}"
-    RestClient.get rest_url, @header
+    JSON.parse(RestClient.get rest_url, @header)
   end
  
   ##
@@ -120,7 +122,7 @@ class FlipkartApi
   # This method will get the full deatials of a particualar product.
   # Output will json or xml depending on format parameter (json, xml)
   # Usage:
-  #  * fa.getproduct_by_id("TVSDD2DSPYU3BFZY", "json")  
+  #  * fa.get_product_by_id("TVSDD2DSPYU3BFZY", "json")  
   #
   def get_product_by_id(product_id, format)
     rest_url = "#{@api}/product/#{format}?id=#{product_id}"
