@@ -44,7 +44,7 @@ describe FlipkartApi do
     describe ".get_product_by_id('MOBDPPZZPXVDJHSQ', 'json')" do
       it "Will get the product" do
         product = @api.get_product_by_id("MOBDPPZZPXVDJHSQ", "json")
-        expect(product["productBaseInfo"]["productIdentifier"]["productId"]).to eq("MOBDPPZZPXVDJHSQ")
+        expect(JSON.parse(product)["productBaseInfo"]["productIdentifier"]["productId"]).to eq("MOBDPPZZPXVDJHSQ")
       end
     end
 end
