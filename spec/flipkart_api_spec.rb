@@ -52,12 +52,12 @@ describe FlipkartApi do
 
     describe ".get_delta_products_by_category('bags_wallets_belts')" do
       it "Will get the products for 'bags_wallets_belts' category" do
-        products = @api.get_delta_products_by_category("bags_wallets_belts")
+        products = @api.get_delta_products_by_category("bags_wallets_belts", 0)
         expect(products["productInfoList"].size).to be > 1
       end
 
       it "Will get the products for 'bags_wallets_belts' category using 'v1.1.0' api" do
-        products = @v1_api.get_delta_products_by_category("bags_wallets_belts")
+        products = @v1_api.get_delta_products_by_category("bags_wallets_belts", 0)
         expect(products["productInfoList"].size).to be > 1
       end
     end

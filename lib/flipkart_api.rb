@@ -51,10 +51,15 @@ class FlipkartApi
   def get_category_delta_version_api(category)
     JSON.parse(get_categories("json"))["apiGroups"]["affiliate"]["apiListings"][category]["availableVariants"][@version]["deltaGet"]
   end
+
+  def get_current_delta_version(version_api)
+    JSON.parse(RestClient.get(version_api, @header))['version']
+  end
   
-  def get_category_delta_products_api(category)
+  def get_category_delta_products_api(category, version=nil)
     version_api = get_category_delta_version_api(category)
-    version_api.gsub(".json","/fromVersion/#{JSON.parse(RestClient.get(version_api, @header))['version']}.json")
+    version = get_current_delta_version(version_api) unless version
+    version_api.gsub(".json","/fromVersion/#{version}.json")
   end
 
   ##
@@ -75,8 +80,8 @@ class FlipkartApi
   # Usage:
   #  * fa.get_delta_products_by_category("bags_wallets_belts")
   #
-  def get_delta_products_by_category(category)
-    get_products(get_category_delta_products_api(category))
+  def get_delta_products_by_category(category, version=nil)
+    get_products(get_category_delta_products_api(category, version))
   end 
   ##
   #
