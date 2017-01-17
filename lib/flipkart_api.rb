@@ -9,9 +9,10 @@ class FlipkartApi
   #
   # Initialize object with userid and token to send api calls.
   #
-  def initialize(fk_userid, fk_token)\
+  def initialize(fk_userid, fk_token, version='v0.1.0')
     @api = "https://affiliate-api.flipkart.net/affiliate"
     @header = {"Fk-Affiliate-Id" => fk_userid, "Fk-Affiliate-Token" => fk_token}
+    @version = version
   end
  
   ##
@@ -36,7 +37,24 @@ class FlipkartApi
   # Returns the api to get all the products of the category
   #
   def get_category_products_api(category)
-    JSON.parse(get_categories("json"))["apiGroups"]["affiliate"]["apiListings"][category]["availableVariants"]["v0.1.0"]["get"]
+    JSON.parse(get_categories("json"))["apiGroups"]["affiliate"]["apiListings"][category]["availableVariants"][@version]["get"]
+  end
+
+  ##
+  #
+  # This method will get the api for accessing all the products of a particular category.
+  # Usage:
+  #  * fa = FlipkartApi.new(fk_userid, fk_token)
+  #  * fa.get_category_delta_porducts_api("bags_wallets_belts")
+  # Returns the api to get all the products of the category
+  #
+  def get_category_delta_version_api(category)
+    JSON.parse(get_categories("json"))["apiGroups"]["affiliate"]["apiListings"][category]["availableVariants"][@version]["deltaGet"]
+  end
+  
+  def get_category_delta_products_api(category)
+    version_api = get_category_delta_version_api(category)
+    version_api.gsub(".json","/fromVersion/#{JSON.parse(RestClient.get(version_api, @header))['version']}.json")
   end
 
   ##
@@ -49,7 +67,17 @@ class FlipkartApi
   def get_products_by_category(category)
     get_products(get_category_products_api(category))
   end
-  
+ 
+  ##
+  #
+  # This method will get the first 500 products in the json parsed data structure.
+  # Output will also contain "nextUrl" which inturn returns next 500 products.
+  # Usage:
+  #  * fa.get_delta_products_by_category("bags_wallets_belts")
+  #
+  def get_delta_products_by_category(category)
+    get_products(get_category_delta_products_api(category))
+  end 
   ##
   #
   # This method will get all the products in the json parsed data structure.
