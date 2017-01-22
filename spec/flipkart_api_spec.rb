@@ -10,7 +10,7 @@ describe FlipkartApi do
     describe ".get_categories" do
       it "Will list all the categories" do
         categories = @api.get_categories("json")
-        expect(JSON.parse(categories)["apiGroups"]["affiliate"]["apiListings"].size).to be > 1
+        expect(JSON.parse(categories)["apiGroups"]["affiliate"]["apiListings"].size).to be >= 1
       end
     end
 
@@ -29,12 +29,12 @@ describe FlipkartApi do
     describe ".get_products_by_category('bags_wallets_belts')" do
       it "Will get the products for 'bags_wallets_belts' category" do
         products = @api.get_products_by_category("bags_wallets_belts")
-        expect(products["productInfoList"].size).to be > 1
+        expect(products["productInfoList"].size).to be >= 1
       end
 
       it "Will get the products for 'bags_wallets_belts' category using 'v1.1.0' api" do
         products = @v1_api.get_products_by_category("bags_wallets_belts")
-        expect(products["productInfoList"].size).to be > 1
+        expect(products["productInfoList"].size).to be >= 1
       end
     end
     
@@ -53,15 +53,40 @@ describe FlipkartApi do
     describe ".get_delta_products_by_category('bags_wallets_belts')" do
       it "Will get the products for 'bags_wallets_belts' category" do
         products = @api.get_delta_products_by_category("bags_wallets_belts", 0)
-        expect(products["productInfoList"].size).to be > 1
+        expect(products["productInfoList"].size).to be >= 1
       end
 
       it "Will get the products for 'bags_wallets_belts' category using 'v1.1.0' api" do
         products = @v1_api.get_delta_products_by_category("bags_wallets_belts", 0)
-        expect(products["productInfoList"].size).to be > 1
+        expect(products["productInfoList"].size).to be >= 1
       end
     end
 
+    describe ".get_book_categories" do
+      it "Will list all the book categories" do
+        categories = @api.get_book_categories("json")
+        expect(JSON.parse(categories)["booksCategory"].size).to be >= 1
+      end
+    end
+  
+    describe '.get_category_books_api(["Books", "Fiction & Non-Fiction Books", "Children Books", "Activity Books", "Cursive Writing"])' do
+      it "Will get the books rest api for 'Children Books' category" do
+        books_api = @api.get_category_books_api(["Books", "Fiction & Non-Fiction Books", "Children Books", "Activity Books", "Cursive Writing"])
+        expect(books_api).to include "https://affiliate-api.flipkart.net/affiliate/1.0/booksFeeds/"
+      end
+      
+      it "Will get the books rest api for 'Books' category" do
+        books_api = @api.get_category_books_api(["Books"])
+        expect(books_api).to include "https://affiliate-api.flipkart.net/affiliate/1.0/booksFeeds/"
+      end
+    end
+  
+    describe '.get_books_by_category(["Books"])' do
+      it 'will get top 500 selling books for "Cursive Writing" category' do
+        books = @api.get_books_by_category(["Books"])
+        expect(books["productInfoList"].size).to be >= 1
+      end
+    end  
 
 #    describe ".get_dotd_offers('json')" do
 #      it "Will get all deals of the day offers" do

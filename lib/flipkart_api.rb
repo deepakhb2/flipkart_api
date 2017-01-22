@@ -114,6 +114,46 @@ class FlipkartApi
   
   ##
   #
+  # This method will get all the categories list in flipkart with rest url to access books
+  # of that particular category in json or xml format. ("json"/"xml")
+  # Usage:
+  #  * fa = FlipkartApi.new(fk_userid, fk_token)
+  #  * fa.get_books_categories("json")
+  # 
+  def get_book_categories(format)
+    rest_url="#{@api}/1.0/booksApi/#{@header['Fk-Affiliate-Id']}.#{format}"
+    RestClient.get rest_url, @header
+  end
+  
+  ##
+  #
+  # This method will get the api for accessing books of a particular category.
+  # Since flipkart returns categories in tree structure. This method takes parameter in array to find the category in parent child order.
+  # Usage:
+  #  * fa = FlipkartApi.new(fk_userid, fk_token)
+  #  * fa.get_category_books_api(["books", "Fiction & Non-Fiction Books", "Children Books"])
+  # Returns the api to get bookds of the category
+  #
+  def get_category_books_api(categories)
+    json_categories = JSON.parse(get_book_categories("json"))["booksCategory"]
+    return json_categories["url"] if categories.size==1 && categories.first=="Books"
+    categories.drop(1).inject(json_categories){|json_categories, category| json_categories["subCategories"].select{|sub_category| sub_category["name"]==category}.first}["url"]
+  end
+  
+  ##
+  #
+  # This method will get the first 500 books from the given category in the json parsed data structure.
+  # Usage:
+  #  * fa.get_books_by_category(["Books", "Fiction & Non-Fiction Books", "Children Books", "Activity Books", "Cursive Writing"])
+  # Returns the books from 'Cursive Writing' category
+  #
+  def get_books_by_category(categories)
+    rest_output = RestClient.get get_category_books_api(categories), @header
+    JSON.parse(rest_output)
+  end
+  
+  ##
+  #
   # This method will get the deals of the day in json or xml format.
   # Usage:
   #  * fa.get_dotd_offes("json")  Can accept "xml" .
