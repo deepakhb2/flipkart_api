@@ -8,6 +8,7 @@ class FlipkartApi
   ##
   #
   # Initialize object with userid and token to send api calls.
+  # One optional 3rd parameter to specify api version. It is default to v0.1.0.
   #
   def initialize(fk_userid, fk_token, version='v0.1.0')
     @api = "https://affiliate-api.flipkart.net/affiliate"
@@ -42,21 +43,37 @@ class FlipkartApi
 
   ##
   #
-  # This method will get the api for accessing all the products of a particular category.
+  # This method will get the api for accessing all the products that have changed after perticular version of a category.
+  # This api is also used to pull the current version.
   # Usage:
   #  * fa = FlipkartApi.new(fk_userid, fk_token)
-  #  * fa.get_category_delta_porducts_api("bags_wallets_belts")
-  # Returns the api to get all the products of the category
+  #  * fa.get_category_delta_version_api("bags_wallets_belts")
+  # Returns the api of the category to pull the changed products after perticular version.
   #
   def get_category_delta_version_api(category)
     JSON.parse(get_categories("json"))["apiGroups"]["affiliate"]["apiListings"][category]["availableVariants"][@version]["deltaGet"]
   end
 
+  ##
+  #
+  # This method will get the current version of a particular category after which products have changed.
+  # Usage:
+  #  * fa = FlipkartApi.new(fk_userid, fk_token)
+  #  * fa.get_category_delta_porducts_api("bags_wallets_belts")
+  # Returns the verstion number of the category
+  #
   def get_current_delta_version(version_api)
     JSON.parse(RestClient.get(version_api, @header))['version']
   end
   
-  def get_category_delta_products_api(category, version=nil)
+  ##
+  # This method will get the api to access all the products that have changed after current version or the version number passed.
+  # Usage:
+  #   * fa = FlipkarApi.new(fk_userid, fk_token)
+  #   * fa.get_category_delta_products_api("bags_wallets_belts")
+  # Returns the api to get products that have changed after perticular version.
+  #
+  deif get_category_delta_products_api(category, version=nil)
     version_api = get_category_delta_version_api(category)
     version = get_current_delta_version(version_api) unless version
     version_api.gsub(".json","/fromVersion/#{version}.json")
@@ -76,7 +93,6 @@ class FlipkartApi
   ##
   #
   # This method will get the first 500 products in the json parsed data structure.
-  # Output will also contain "nextUrl" which inturn returns next 500 products.
   # Usage:
   #  * fa.get_delta_products_by_category("bags_wallets_belts")
   #
