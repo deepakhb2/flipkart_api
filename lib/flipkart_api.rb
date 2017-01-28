@@ -73,7 +73,7 @@ class FlipkartApi
   #   * fa.get_category_delta_products_api("bags_wallets_belts")
   # Returns the api to get products that have changed after perticular version.
   #
-  deif get_category_delta_products_api(category, version=nil)
+  def get_category_delta_products_api(category, version=nil)
     version_api = get_category_delta_version_api(category)
     version = get_current_delta_version(version_api) unless version
     version_api.gsub(".json","/fromVersion/#{version}.json")
