@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|  
   s.name        = 'flipkart_api'
-  s.version     = '0.1.o'
+  s.version     = '0.1.0'
   s.date        = '2017-01-29'
   s.summary     = "This gem will help you to pull data from flipkart using flipkart api"
   s.description = "Pull data from flipkart by using api"
