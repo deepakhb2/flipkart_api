@@ -5,5 +5,5 @@ gem "pry"
 
 group :test do
   gem "rspec"
-  gem "rake"
+  gem "rake", "< 11"
 end
