@@ -1,15 +1,19 @@
 # coding: utf-8
 require "rest-client"
+require "pry"
+require "logger"
 
 class FlipkartApi
 
   ##
   #
   # Initialize object with userid and token to send api calls.
+  # One optional 3rd parameter to specify api version. It is default to v0.1.0.
   #
-  def initialize(fk_userid, fk_token)
+  def initialize(fk_userid, fk_token, version='v0.1.0')
     @api = "https://affiliate-api.flipkart.net/affiliate"
     @header = {"Fk-Affiliate-Id" => fk_userid, "Fk-Affiliate-Token" => fk_token}
+    @version = version
   end
  
   ##
@@ -22,7 +26,7 @@ class FlipkartApi
   #
   def get_categories(format)
     rest_url="#{@api}/api/#{@header['Fk-Affiliate-Id']}.#{format}"
-    RestClient.get rest_url
+    RestClient.get rest_url, @header
   end
 
   ##
@@ -33,8 +37,46 @@ class FlipkartApi
   #  * fa.get_category_porducts_api("bags_wallets_belts")
   # Returns the api to get all the products of the category
   #
-  def get_category_porducts_api(category)
-    JSON.parse(get_categories("json"))["apiGroups"]["affiliate"]["apiListings"][category]["availableVariants"]["v0.1.0"]["get"]
+  def get_category_products_api(category_name)
+    JSON.parse(get_categories("json"))["apiGroups"]["affiliate"]["apiListings"][category_name]["availableVariants"][@version]["get"]
+  end
+
+  ##
+  #
+  # This method will get the api for accessing all the products that have changed after perticular version of a category.
+  # This api is also used to pull the current version.
+  # Usage:
+  #  * fa = FlipkartApi.new(fk_userid, fk_token)
+  #  * fa.get_category_delta_version_api("bags_wallets_belts")
+  # Returns the api of the category to pull the changed products after perticular version.
+  #
+  def get_category_delta_version_api(category_name)
+    JSON.parse(get_categories("json"))["apiGroups"]["affiliate"]["apiListings"][category_name]["availableVariants"][@version]["deltaGet"]
+  end
+
+  ##
+  #
+  # This method will get the current version of a particular category after which products have changed.
+  # Usage:
+  #  * fa = FlipkartApi.new(fk_userid, fk_token)
+  #  * fa.get_category_delta_porducts_api("bags_wallets_belts")
+  # Returns the verstion number of the category
+  #
+  def get_current_delta_version(version_api)
+    JSON.parse(RestClient.get(version_api, @header))['version']
+  end
+  
+  ##
+  # This method will get the api to access all the products that have changed after current version or the version number passed.
+  # Usage:
+  #   * fa = FlipkarApi.new(fk_userid, fk_token)
+  #   * fa.get_category_delta_products_api("bags_wallets_belts")
+  # Returns the api to get products that have changed after perticular version.
+  #
+  def get_category_delta_products_api(category_name, version=nil)
+    version_api = get_category_delta_version_api(category_name)
+    version = get_current_delta_version(version_api) unless version
+    version_api.gsub(".json","/fromVersion/#{version}.json")
   end
 
   ##
@@ -44,10 +86,19 @@ class FlipkartApi
   # Usage:
   #  * fa.get_products_by_category("bags_wallets_belts")
   #
-  def get_products_by_category(category)
-    get_products(get_category_product_api(category))
+  def get_products_by_category(category_name)
+    get_products(get_category_products_api(category_name))
   end
-  
+ 
+  ##
+  #
+  # This method will get the first 500 products in the json parsed data structure.
+  # Usage:
+  #  * fa.get_delta_products_by_category("bags_wallets_belts")
+  #
+  def get_delta_products_by_category(category_name, version=nil)
+    get_products(get_category_delta_products_api(category_name, version))
+  end 
   ##
   #
   # This method will get all the products in the json parsed data structure.
@@ -79,6 +130,46 @@ class FlipkartApi
   
   ##
   #
+  # This method will get all the categories list in flipkart with rest url to access books
+  # of that particular category in json or xml format. ("json"/"xml")
+  # Usage:
+  #  * fa = FlipkartApi.new(fk_userid, fk_token)
+  #  * fa.get_books_categories("json")
+  # 
+  def get_book_categories(format)
+    rest_url="#{@api}/1.0/booksApi/#{@header['Fk-Affiliate-Id']}.#{format}"
+    RestClient.get rest_url, @header
+  end
+  
+  ##
+  #
+  # This method will get the api for accessing books of a particular category.
+  # Since flipkart returns categories in tree structure. This method takes parameter in array to find the category in parent child order.
+  # Usage:
+  #  * fa = FlipkartApi.new(fk_userid, fk_token)
+  #  * fa.get_category_books_api(["books", "Fiction & Non-Fiction Books", "Children Books"])
+  # Returns the api to get bookds of the category
+  #
+  def get_category_books_api(categories)
+    json_categories = JSON.parse(get_book_categories("json"))["booksCategory"]
+    return json_categories["url"] if categories.size==1 && categories.first=="Books"
+    categories.drop(1).inject(json_categories){|json_categories, category| json_categories["subCategories"].select{|sub_category| sub_category["name"]==category}.first}["url"]
+  end
+  
+  ##
+  #
+  # This method will get the first 500 books from the given category in the json parsed data structure.
+  # Usage:
+  #  * fa.get_books_by_category(["Books", "Fiction & Non-Fiction Books", "Children Books", "Activity Books", "Cursive Writing"])
+  # Returns the books from 'Cursive Writing' category
+  #
+  def get_books_by_category(categories)
+    rest_output = RestClient.get get_category_books_api(categories), @header
+    JSON.parse(rest_output)
+  end
+  
+  ##
+  #
   # This method will get the deals of the day in json or xml format.
   # Usage:
   #  * fa.get_dotd_offes("json")  Can accept "xml" .
@@ -93,7 +184,7 @@ class FlipkartApi
   #
   def get_dotd_offers(format)
     rest_url = "#{@api}/offers/v1/dotd/#{format}"
-    RestClient.get rest_url, @header
+    JSON.parse(RestClient.get rest_url, @header)
   end
   
   ##
@@ -112,7 +203,7 @@ class FlipkartApi
   #
   def get_top_offers(format)
     rest_url = "#{@api}/offers/v1/top/#{format}"
-    RestClient.get rest_url, @header
+    JSON.parse(RestClient.get rest_url, @header)
   end
  
   ##
@@ -120,7 +211,7 @@ class FlipkartApi
   # This method will get the full deatials of a particualar product.
   # Output will json or xml depending on format parameter (json, xml)
   # Usage:
-  #  * fa.getproduct_by_id("TVSDD2DSPYU3BFZY", "json")  
+  #  * fa.get_product_by_id("TVSDD2DSPYU3BFZY", "json")  
   #
   def get_product_by_id(product_id, format)
     rest_url = "#{@api}/product/#{format}?id=#{product_id}"
