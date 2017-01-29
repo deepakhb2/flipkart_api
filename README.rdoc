@@ -31,6 +31,13 @@ On version 0.1.0, the support is added for delta products and flipkart api versi
 
  delta_products = fk_api.get_delta_products_by_category(category_name)
 
+ books_categories = fk_api.get_book_categories("json")
+
+ books_categoriy_api = fk_api.get_category_books_api(categories)     #categories type is array (hierachy means 'Cildren Books' is sub group of 'Fiction & No-Fiction Books') and format is '["Books", "Fiction & Non-Fiction Books", "Children Books", "Activity Books", "Cursive Writing"]'
+                                                                     # This method will return api of 'Cursive Writing' category.
+ 
+ books = fk_api.get_books_by_category(categories)
+
  dotd= fp_api.get_dotd_offers(format) #to get deals of the day. format = xml/json
  
  top_offers = fp_api.get_topoffers(format) 

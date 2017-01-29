@@ -37,8 +37,8 @@ class FlipkartApi
   #  * fa.get_category_porducts_api("bags_wallets_belts")
   # Returns the api to get all the products of the category
   #
-  def get_category_products_api(category)
-    JSON.parse(get_categories("json"))["apiGroups"]["affiliate"]["apiListings"][category]["availableVariants"][@version]["get"]
+  def get_category_products_api(category_name)
+    JSON.parse(get_categories("json"))["apiGroups"]["affiliate"]["apiListings"][category_name]["availableVariants"][@version]["get"]
   end
 
   ##
@@ -50,8 +50,8 @@ class FlipkartApi
   #  * fa.get_category_delta_version_api("bags_wallets_belts")
   # Returns the api of the category to pull the changed products after perticular version.
   #
-  def get_category_delta_version_api(category)
-    JSON.parse(get_categories("json"))["apiGroups"]["affiliate"]["apiListings"][category]["availableVariants"][@version]["deltaGet"]
+  def get_category_delta_version_api(category_name)
+    JSON.parse(get_categories("json"))["apiGroups"]["affiliate"]["apiListings"][category_name]["availableVariants"][@version]["deltaGet"]
   end
 
   ##
@@ -73,8 +73,8 @@ class FlipkartApi
   #   * fa.get_category_delta_products_api("bags_wallets_belts")
   # Returns the api to get products that have changed after perticular version.
   #
-  def get_category_delta_products_api(category, version=nil)
-    version_api = get_category_delta_version_api(category)
+  def get_category_delta_products_api(category_name, version=nil)
+    version_api = get_category_delta_version_api(category_name)
     version = get_current_delta_version(version_api) unless version
     version_api.gsub(".json","/fromVersion/#{version}.json")
   end
@@ -86,8 +86,8 @@ class FlipkartApi
   # Usage:
   #  * fa.get_products_by_category("bags_wallets_belts")
   #
-  def get_products_by_category(category)
-    get_products(get_category_products_api(category))
+  def get_products_by_category(category_name)
+    get_products(get_category_products_api(category_name))
   end
  
   ##
@@ -96,8 +96,8 @@ class FlipkartApi
   # Usage:
   #  * fa.get_delta_products_by_category("bags_wallets_belts")
   #
-  def get_delta_products_by_category(category, version=nil)
-    get_products(get_category_delta_products_api(category, version))
+  def get_delta_products_by_category(category_name, version=nil)
+    get_products(get_category_delta_products_api(category_name, version))
   end 
   ##
   #
