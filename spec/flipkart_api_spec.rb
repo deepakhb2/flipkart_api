@@ -69,9 +69,9 @@ describe FlipkartApi do
       end
     end
   
-    describe '.get_category_books_api(["Books", "Fiction & Non-Fiction Books", "Children Books", "Activity Books", "Cursive Writing"])' do
-      it "Will get the books rest api for 'Children Books' category" do
-        books_api = @api.get_category_books_api(["Books", "Fiction & Non-Fiction Books", "Children Books", "Activity Books", "Cursive Writing"])
+    describe '.get_category_books_api(["Books", "Educational and Professional Books"])' do
+      it "Will get the books rest api for 'Educational and Professional Books' category" do
+        books_api = @api.get_category_books_api(["Books", "Educational and Professional Books"])
         expect(books_api).to include "https://affiliate-api.flipkart.net/affiliate/1.0/booksFeeds/"
       end
       
@@ -81,9 +81,9 @@ describe FlipkartApi do
       end
     end
   
-    describe '.get_books_by_category(["Books"])' do
-      it 'will get top 500 selling books for "Cursive Writing" category' do
-        books = @api.get_books_by_category(["Books"])
+    describe '.get_books_by_category(["Books", "Educational and Professional Books"])' do
+      it 'will get top 500 selling books for "Educational and Professional Books" category' do
+        books = @api.get_books_by_category(["Books","Educational and Professional Books"])
         expect(books["productInfoList"].size).to be >= 1
       end
     end  
