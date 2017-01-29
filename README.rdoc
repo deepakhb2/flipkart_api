@@ -1,5 +1,6 @@
 = Flipkart Api
 Pulling data from flipkart using flipkart api. The initial release with simple FlipkartApi class to get categories, products in perticular category, deals of the day, top offers in json format.
+On version 0.1.0, the support is added for delta products and flipkart api version number can be configured while instializing the object (v0.1.0/v1.1.0).
 
 === Requirements
  Api Requests are sent using rest-client gem.
@@ -8,20 +9,28 @@ Pulling data from flipkart using flipkart api. The initial release with simple F
  
  require 'flipkart_api'
  
- fp_api = FlipkartApi.new(Fk-Affiliate-Id, Fk-Affiliate-Token)
+ fk_api = FlipkartApi.new(Fk-Affiliate-Id, Fk-Affiliate-Token, "v0.1.0")
  
- categories = fp_api.get_categories(format)   #Format: json/xml, Returns the response from server: json/xml
+ categories = fk_api.get_categories(format)   #Format: json/xml, Returns the response from server: json/xml
  
- rest_url = fp_api.get_category_porducts_api(category_name) #Name is as present in the categories
+ rest_url = fk_api.get_category_porducts_api(category_name) #Name is as present in the categories
 
- products = fp_api.get_products_by_category(category_name) #Name is as present in categories (xml/json). Returns upto first 500 products in JSON parsed data structure
+ products = fk_api.get_products_by_category(category_name) #Name is as present in categories (xml/json). Returns upto first 500 products in JSON parsed data structure
  
- products = fp_api.get_all_products(rest_url) #Url is the one retured by get_categories/get_category_products_api. This method will get all the products in JSON parsed data structure
+ products = fk_api.get_all_products(rest_url) #Url is the one retured by get_categories/get_category_products_api. This method will get all the products in JSON parsed data structure
 
- products = fp_api.get_products(rest_url) #Url is the one returned by get_categories/get_category_products_api. Returns upto 500 products from the given rest api in JSON parsed data structure
+ products = fk_api.get_products(rest_url) #Url is the one returned by get_categories/get_category_products_api. Returns upto 500 products from the given rest api in JSON parsed data structure
 
- product = fb_api.get_product_by_id(product_id) #id assigned by flipkart for a product.
- 
+ product = fk_api.get_product_by_id(product_id) #id assigned by flipkart for a product.
+
+ delta_api = fk_api.get_category_delta_version_api(category_name)
+
+ delta_version = fk_api.get_current_delta_version(delta_api)
+
+ delta_version_api = fk_api.get_category_delta_products_api(category_name)
+
+ delta_products = fk_api.get_delta_products_by_category(category_name)
+
  dotd= fp_api.get_dotd_offers(format) #to get deals of the day. format = xml/json
  
  top_offers = fp_api.get_topoffers(format) 
@@ -32,16 +41,3 @@ Pulling data from flipkart using flipkart api. The initial release with simple F
    parameters: start_date = "yyyy-mm-dd"
                end_date = "yyyy-mm-dd"
                status = Pending/Approved/Cancelled/Disapproved
-               
- 
-
- require 'flipkart_delta_api' #Use the delta api to fetch products
-
- fp_api = FlipkartDeltaApi.new(Fk-Affiliate-Id, Fk-Affiliate-Token)
-
- rest_url = fp_api.get_category_porducts_api(category_name) #Name is as present in the categories
-
- products = fp_api.get_products(rest_url, version) #Url is the one returned by get_categories/get_category_products_api. Returns upto 500 products from the given rest api in JSON parsed data structure, if version is passed returns only changed products since then.
-
- version = fp_api.get_current_version(rest_url) #Url is the one returned by get_categories/get_category_products_api. Returns the current version of delta api.
-
