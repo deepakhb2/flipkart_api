@@ -51,11 +51,10 @@ On version 0.1.0, the support is added for delta products and flipkart api versi
 
 {<img src="https://badge.fury.io/rb/flipkart_api.svg" alt="Gem Version" />}[https://badge.fury.io/rb/flipkart_api]
 
-## Code Status
+== Code Status of master branch
+{<img src="https://travis-ci.org/deepakhb2/flipkart_api.svg?branch=master" />}[https://travis-ci.org/deepakhb2/flipkart_api]
 
-[![Build Status](https://travis-ci.org/deepakhb2/flipkart_api.svg?branch=master)](https://travis-ci.org/deepakhb2/flipkart_api)
-
-## License
+== License
 
 Released under the [MIT License](http://www.opensource.org/licenses/MIT).
 
