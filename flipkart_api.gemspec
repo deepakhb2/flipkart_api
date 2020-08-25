@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.homepage    =
     'https://github.com/deepakhb2/flipkart_api'
 
-  s.add_dependency('rest-client', '1.7.2')
+  s.add_dependency('rest-client', '2.1.0')
 
   s.required_ruby_version = '>= 1.9.3'
 
